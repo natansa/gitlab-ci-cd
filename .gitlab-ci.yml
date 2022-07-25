@@ -1,0 +1,125 @@
+image: mcr.microsoft.com/dotnet/sdk:6.0
+
+stages:
+  - testar
+  - construir
+  #- implantar-develop
+  #- release
+  #- implantar-producao
+
+before_script:
+  - pwd
+
+qa-aplicacao:
+  stage: testar
+  script:
+    - dotnet test
+
+contruir-aplicacao:
+  stage: construir
+  when: on_success
+  artifacts:
+    name: "$CI_JOB_NAME-$CI_COMMIT_REF_NAME"
+    paths:
+      - ./artefatos
+    untracked: false
+    expire_in: 3 mins 4 sec
+    when: always
+  cache:
+    key: meu-cache
+    policy: push
+    paths:
+      - ./artefatos
+  script:
+    - dotnet build
+
+#develop-aplicacao:
+#  stage: implantar-develop
+#  when: on_success
+#  variables: 
+#    CNAME: develop.dominio-do-natan.surge.sh
+#    GIT_STRATEGY: none
+#  cache:
+#    key: meu-cache
+#    policy: pull
+#    paths:
+#      - ./artefatos  
+#  before_script:
+#    - npm install -g surge
+#    - surge login
+#    - surge whoami
+#  script:
+#    - surge --project ./website/build/test-site --domain ${CNAME}
+#  environment:
+#    name: develop
+#    url:  http://${CNAME}
+#  only:
+#    - develop
+
+#deploy-release:
+#  stage: release
+#  variables: 
+#    CNAME: $CI_COMMIT_REF_SLUG.dominio-do-natan.surge.sh
+#    GIT_STRATEGY: none
+#    CI_DEBUG_TRACE: "true"
+#  cache:
+#    key: meu-cache
+#    policy: pull
+#    paths:
+#      - ./website/build/test-site  
+#  before_script:
+#    - npm install -g surge
+#    - surge login
+#    - surge whoami
+#  script:
+#    - surge --project ./website/build/test-site --domain ${CNAME}
+#  after_script:
+#    - whoami
+#  environment:
+#    name: review/$CI_COMMIT_REF_SLUG
+#    url:  http://${CNAME}
+#    on_stop: turnoff
+#  only:
+#    - /^release-.*$/
+
+#turnoff:
+#  stage: release
+#  when: manual
+#  variables: 
+#    CNAME: $CI_COMMIT_REF_SLUG.dominio-do-natan.surge.sh
+#    GIT_STRATEGY: none
+#  before_script:
+#    - npm install -g surge
+#    - surge login
+#    - surge whoami
+#  script:
+#    - surge teardown ${CNAME}
+#  environment:
+#    name: review/$CI_COMMIT_REF_SLUG
+#    url:  http://${CNAME}
+#    action: stop
+#  only:
+#    - /^release-.*$/
+
+#production-aplicacao:
+#  stage: implantar-producao
+#  when: manual
+#  variables: 
+#    CNAME: production.dominio-do-natan.surge.sh
+#    GIT_STRATEGY: none
+#  cache:
+#    key: meu-cache
+#    policy: pull
+#    paths:
+#      - ./website/build/test-site  
+#  before_script:
+#    - npm install -g surge
+#    - surge login
+#    - surge whoami
+#  script:
+#    - surge --project ./website/build/test-site --domain ${CNAME}
+#  environment:
+#    name: production
+#    url:  http://${CNAME}
+#  only:
+#    - main

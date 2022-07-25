@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32602.215
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CiCd", "projeto\CiCd.csproj", "{ED0897C0-21F5-4D6E-A7F2-B0D7BF5EFB27}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CiCdTest", "testes\CiCdTest.csproj", "{72B6BD66-C746-488D-8985-1701734CB58D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{464ABED1-2116-4DAA-B2A2-AC6CE421B38F}"
+	ProjectSection(SolutionItems) = preProject
+		.gitlab-ci.yml = .gitlab-ci.yml
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ED0897C0-21F5-4D6E-A7F2-B0D7BF5EFB27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED0897C0-21F5-4D6E-A7F2-B0D7BF5EFB27}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED0897C0-21F5-4D6E-A7F2-B0D7BF5EFB27}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED0897C0-21F5-4D6E-A7F2-B0D7BF5EFB27}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72B6BD66-C746-488D-8985-1701734CB58D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72B6BD66-C746-488D-8985-1701734CB58D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72B6BD66-C746-488D-8985-1701734CB58D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72B6BD66-C746-488D-8985-1701734CB58D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AFB60969-2A5A-4C04-A9A5-389B9D6C3724}
+	EndGlobalSection
+EndGlobal
