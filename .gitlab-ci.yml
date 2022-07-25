@@ -3,7 +3,7 @@ image: mcr.microsoft.com/dotnet/sdk:6.0
 stages:
   - testar
   - construir
-  #- implantar-develop
+  - implantar-develop
   #- release
   #- implantar-producao
 
@@ -31,30 +31,24 @@ contruir-aplicacao:
     paths:
       - ./artefatos
   script:
-    - dotnet build
+    - dotnet build -c Release -o ./artefatos
+    - ls ./artefatos
 
-#develop-aplicacao:
-#  stage: implantar-develop
-#  when: on_success
-#  variables: 
-#    CNAME: develop.dominio-do-natan.surge.sh
-#    GIT_STRATEGY: none
-#  cache:
-#    key: meu-cache
-#    policy: pull
-#    paths:
-#      - ./artefatos  
-#  before_script:
-#    - npm install -g surge
-#    - surge login
-#    - surge whoami
-#  script:
-#    - surge --project ./website/build/test-site --domain ${CNAME}
-#  environment:
-#    name: develop
-#    url:  http://${CNAME}
-#  only:
-#    - develop
+develop-aplicacao:
+  stage: implantar-develop
+  when: on_success
+  cache:
+    key: meu-cache
+    policy: pull
+    paths:
+      - ./artefatos
+  script:
+    - dotnet publish -c Release -o ./develop
+    - ls ./develop
+  environment:
+    name: develop
+  only:
+    - develop
 
 #deploy-release:
 #  stage: release
